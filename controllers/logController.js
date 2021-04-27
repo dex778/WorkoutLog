@@ -33,14 +33,14 @@ router.get('/log/:id', (req, res) => {
 })
 
 //UPDATE LOG
-router.put('/log/:id', validate, (req, res) => { 
+router.put('/log/:id',validate, (req, res) => { 
     logs.update(req.body, { where: { id: req.params.id } })
     .then(updated => res.status(200).json({ message: `Successfully Updated logs ${req.params.id}`, updated}))
     .catch(err => res.status(500).json({message: "Update failed!", err}))
 })
 
 //DELETE LOG
-router.delete('/log/:id', (req, res) => {
+router.delete('/log/:id', validate,(req, res) => {
     logs.destroy( { where: { id: req.params.id } })
     .then(deleted => res.status(200).json({ message: { id: req.params.id }, deleted }))
     .catch(err => res.status(500).json({ message: 'Your log has been deleted', error: err}))
